@@ -1,0 +1,93 @@
+name: Commit, Tag, and Github Release
+
+on:
+  workflow_call:
+    inputs:
+      newVersion:
+        required: true
+        type: string
+      dryRun:
+        required: true
+        type: boolean
+    secrets:
+      PRIVATE_KEY:
+        required: true
+
+jobs:
+  repository:
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@v4
+
+      - id: echo-version
+        name: Echo version
+        run: |
+          echo "Version from inputs: $NEW_VERSION"
+        env:
+          NEW_VERSION: ${{ inputs.newVersion }}
+      
+      - id: update-manifest-json
+        name: Inject new version to manifest.json
+        run: |
+          ls -la
+          pwd
+          jq --arg version "$NEW_VERSION" '.version = $version' "manifest.json" > "manifest.json.tmp"
+          mv "manifest.json.tmp" "manifest.json" 
+        env:
+          NEW_VERSION: ${{ inputs.newVersion }}
+
+      - id: install-crx
+        name: Install crx tool
+        run: |
+          # install crx tool
+          npm install -g crx
+
+      - id: package-extension
+        name: Package Chrome extension
+        run: |
+          # package the extension
+          chmod +x package.sh
+          ./package.sh
+
+          # zip the crx file for upload
+          zip extension.crx.zip extension.crx
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
+      - id: upload-artifacts
+        name: Upload CRX file and updates.xml
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension-artifacts
+          path: |
+            extension.crx
+            updates.xml
+
+      - id: commit-and-tag
+        name: Commit manifest.json and updates.xml with new version
+        if: ${{ inputs.dryRun == false }}
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Version Update to ${{ inputs.newVersion }}"
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          author_name: github-actions
+          add: |
+            manifest.json 
+            updates.xml
+          push: true
+          tag: ${{ inputs.newVersion }}
+          pathspec_error_handling: exitImmediately
+
+      - id: github-release
+        name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: ${{ inputs.dryRun == false }}
+        with:
+          files: |
+            extension.crx.zip
+          name: ${{ inputs.newVersion }}
+          draft: false
+          tag_name: ${{ inputs.newVersion }}

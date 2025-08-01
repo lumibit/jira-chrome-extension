@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- this file goes to the webserver and is referenced in the Chrome enterprise profile -->
+<gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
+  <app appid='lmogllnohgfkhdghghallepbllfnkkeg'>
+    <updatecheck codebase='https://lumibit.github.io/jira-chrome-extension/dist/extension.crx' version='1.0.6' />
+  </app>
+</gupdate>

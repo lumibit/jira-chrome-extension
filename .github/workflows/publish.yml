@@ -1,0 +1,41 @@
+name: Publish to github pages
+
+on:
+  workflow_call:
+    inputs:
+      newVersion:
+        required: true
+        type: string
+      dryRun:
+        required: true
+        type: boolean
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - id: checkout
+        name: Checkout content repository
+        uses: actions/checkout@v4
+
+      - id: download-artifacts
+        name: Download extension artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: extension-artifacts
+
+      - id: commit
+        name: Commit to github pages
+        if: ${{ inputs.dryRun == false }}
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Version Update to ${{ inputs.newVersion }}"
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          author_name: github-actions
+          add: |
+            dist/extension.crx
+            dist/updates.xml
+          push: true
+          pathspec_error_handling: exitImmediately

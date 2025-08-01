@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "JIRA Transition Blocker",
+  "version": "1.0.6",
+  "description": "Blocks specific JIRA actions",
+  "permissions": [
+    "declarativeNetRequest",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://atc.bmwgroup.net/*"
+  ],
+  "update_url": "https://lumibit.github.io/jira-chrome-extension/dist/updates.xml",
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "JIRA Transition Blocker"
+  },
+  "icons": {
+    "16": "extension-icon.png",
+    "48": "extension-icon.png",
+    "128": "extension-icon.png"
+  }
+}
