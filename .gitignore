@@ -82,9 +82,6 @@ out/
 test-results/
 coverage/
 
-# Documentation build (if you add docs generation)
-docs/_build/
-
 # Local configuration files
 config.local.js
 settings.local.json 
