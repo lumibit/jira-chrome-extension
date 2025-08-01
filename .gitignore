@@ -1,5 +1,4 @@
 # Chrome Extension specific
-*.crx
 *.pem
 *.zip
 
