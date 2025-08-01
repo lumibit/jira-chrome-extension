@@ -65,4 +65,5 @@ jobs:
           path: |
             extension.crx
             updates.xml
+            extension.crx.zip
 

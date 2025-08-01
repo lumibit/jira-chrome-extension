@@ -55,7 +55,7 @@ jobs:
         if: ${{ inputs.dryRun == false }}
         with:
           files: |
-            extension.crx.zip
+            docs/extension.crx.zip
           name: ${{ inputs.newVersion }}
           draft: false
           tag_name: ${{ inputs.newVersion }}
