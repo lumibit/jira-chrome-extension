@@ -33,7 +33,7 @@ jobs:
           ls -la docs/
 
       - id: commit-and-tag
-        name: Commit manifest.json and updates.xml with new version
+        name: Commit changed files, add the release .crx to Github Pages
         if: ${{ inputs.dryRun == false }}
         uses: EndBug/add-and-commit@v9
         with:
@@ -49,13 +49,13 @@ jobs:
           tag: ${{ inputs.newVersion }}
           pathspec_error_handling: exitImmediately
 
-      # - id: github-release
-      #   name: Create GitHub Release
-      #   uses: softprops/action-gh-release@v2
-      #   if: ${{ inputs.dryRun == false }}
-      #   with:
-      #     files: |
-      #       extension.crx.zip
-      #     name: ${{ inputs.newVersion }}
-      #     draft: false
-      #     tag_name: ${{ inputs.newVersion }}
+      - id: github-release
+        name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: ${{ inputs.dryRun == false }}
+        with:
+          files: |
+            extension.crx.zip
+          name: ${{ inputs.newVersion }}
+          draft: false
+          tag_name: ${{ inputs.newVersion }}
