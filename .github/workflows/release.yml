@@ -39,7 +39,7 @@ jobs:
       PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
   publish:
-    needs: [package]
+    needs: [package, version]
     uses: ./.github/workflows/publish.yml
     with:
       newVersion: ${{ needs.version.outputs.new }}
