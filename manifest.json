@@ -10,7 +10,7 @@
   "host_permissions": [
     "https://atc.bmwgroup.net/*"
   ],
-  "update_url": "https://lumibit.github.io/jira-chrome-extension/dist/updates.xml",
+  "update_url": "https://lumibit.github.io/jira-chrome-extension/docs/updates.xml",
   "declarative_net_request": {
     "rule_resources": [
       {
