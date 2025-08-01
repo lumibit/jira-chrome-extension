@@ -5,18 +5,36 @@
   "description": "Blocks specific JIRA actions",
   "permissions": [
     "declarativeNetRequest",
-    "storage"
+    "storage",
+    "scripting",
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://atc.bmwgroup.net/jira/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
   ],
   "host_permissions": [
-    "https://atc.bmwgroup.net/*"
+    "https://atc.bmwgroup.net/jira*"
   ],
   "update_url": "https://lumibit.github.io/jira-chrome-extension/updates.xml",
   "declarative_net_request": {
     "rule_resources": [
       {
         "id": "ruleset_1",
-        "enabled": true,
-        "path": "rules.json"
+        "enabled": false,
+        "path": "rules_action171.json"
+      },
+      {
+        "id": "ruleset_2",
+        "enabled": false,
+        "path": "rules_action161_221.json"
       }
     ]
   },
