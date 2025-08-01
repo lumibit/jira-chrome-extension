@@ -69,6 +69,7 @@ tmp/
 temp/
 
 # Build outputs (if you add build tools)
+dist/
 build/
 out/
 
