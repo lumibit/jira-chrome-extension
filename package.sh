@@ -44,7 +44,7 @@ cp manifest.json "$PACKAGE_DIR/"
 cp background.js "$PACKAGE_DIR/"
 cp popup.html "$PACKAGE_DIR/"
 cp popup.js "$PACKAGE_DIR/"
-cp rules.json "$PACKAGE_DIR/"
+cp rules*.json "$PACKAGE_DIR/" 2>/dev/null || true
 cp extension-icon.png "$PACKAGE_DIR/"
 cp README.md "$PACKAGE_DIR/"
 
