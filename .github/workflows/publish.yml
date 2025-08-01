@@ -27,10 +27,11 @@ jobs:
           name: extension-artifacts
           path: docs/
 
-      - id: print-artifacts
-        name: Print extension artifacts
+      - id: place-updated-files
+        name: Copy manifest.json and updates.xml
         run: |
-          ls -la docs/
+          cp docs/manifest.json .
+          cp docs/updates.xml .
 
       - id: commit-and-tag
         name: Commit changed files, add the release .crx to Github Pages

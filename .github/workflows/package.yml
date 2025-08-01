@@ -66,4 +66,5 @@ jobs:
             extension.crx
             updates.xml
             extension.crx.zip
+            manifest.json
 
