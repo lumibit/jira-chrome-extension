@@ -25,9 +25,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: extension-artifacts
-          path: |
-            docs/extension.crx
-            docs/updates.xml
+          path: docs/
 
       - id: commit
         name: Commit to github pages
@@ -37,8 +35,6 @@ jobs:
           message: "Version Update to ${{ inputs.newVersion }}"
           author_email: 41898282+github-actions[bot]@users.noreply.github.com
           author_name: github-actions
-          add: |
-            docs/extension.crx
-            docs/updates.xml
+          add: "docs/"
           push: true
           pathspec_error_handling: exitImmediately
