@@ -1,4 +1,4 @@
-name: Commit, Tag, and Github Release
+name: Package
 
 on:
   workflow_call:
@@ -14,7 +14,7 @@ on:
         required: true
 
 jobs:
-  repository:
+  extension:
     runs-on: ubuntu-latest
 
     steps:
@@ -66,28 +66,3 @@ jobs:
             extension.crx
             updates.xml
 
-      - id: commit-and-tag
-        name: Commit manifest.json and updates.xml with new version
-        if: ${{ inputs.dryRun == false }}
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: "Version Update to ${{ inputs.newVersion }}"
-          author_email: 41898282+github-actions[bot]@users.noreply.github.com
-          author_name: github-actions
-          add: |
-            manifest.json 
-            updates.xml
-          push: true
-          tag: ${{ inputs.newVersion }}
-          pathspec_error_handling: exitImmediately
-
-      - id: github-release
-        name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        if: ${{ inputs.dryRun == false }}
-        with:
-          files: |
-            extension.crx.zip
-          name: ${{ inputs.newVersion }}
-          draft: false
-          tag_name: ${{ inputs.newVersion }}
