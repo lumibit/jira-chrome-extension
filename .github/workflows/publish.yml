@@ -25,6 +25,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: extension-artifacts
+          path: |
+            docs/extension.crx
+            docs/updates.xml
 
       - id: commit
         name: Commit to github pages
